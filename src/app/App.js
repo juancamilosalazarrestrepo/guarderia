@@ -8,6 +8,7 @@ class App extends Component {
        this.state = {
            title:'',
            description: '',
+           raza:'',
            tasks:[],
            _id: ''
        };
@@ -32,7 +33,7 @@ class App extends Component {
                
                console.log(data);
                M.toast({html:'actualizado'});
-               this.setState({title:'',description:'',_id:''});
+               this.setState({title:'',description:'',_id:'',raza:''});
                this.fetchTasks();
            });
 
@@ -51,7 +52,7 @@ class App extends Component {
         .then(data => {
             console.log(data);
             M.toast({html:'Propietario Guardado'});
-            this.setState({title: '', description: ''});
+            this.setState({title: '', description: '',raza:''});
             this.fetchTasks();
         })
         .catch(err => console.error(err));
@@ -105,6 +106,7 @@ editTask(id){
         this.setState({
             title: data.title,
             description: data.description,
+            raza: data.raza,
             _id: data._id
         })
     });
@@ -127,7 +129,7 @@ editTask(id){
               <nav className="light-blue darken-4">
                   <div className="container">
 
-                      <a className="brand-logo" href="/">MERN stack</a>
+                      <a className="brand-logo" href="/">Guarderia de Mascotas</a>
                   </div>
               </nav>
 
@@ -139,15 +141,21 @@ editTask(id){
                               <form onSubmit={this.addTask}>
                                   <div className="row">
                                        <div className="input-field col s12">
-                                         <input name="title" onChange={this.handleChange} type="text" placeholder="task t" 
+                                         <input name="title" onChange={this.handleChange} type="text" placeholder="nombre" 
                                          value={this.state.title}/>
                                        </div>
                                   </div>
                                   <div className="row">
                                        <div className="input-field col s12">
-                                         <textarea  name="description" onChange={this.handleChange} placeholder="Task Description"
+                                         <textarea  name="description" onChange={this.handleChange} placeholder="Caracteristicas fisicas"
                                           className="materialize-textarea"
                                           value={this.state.description}></textarea>
+                                       </div>
+                                  </div>
+                                  <div className="row">
+                                       <div className="input-field col s12">
+                                         <input name="raza" onChange={this.handleChange} type="text" placeholder="raza" 
+                                         value={this.state.raza}/>
                                        </div>
                                   </div>
 
@@ -163,8 +171,9 @@ editTask(id){
 
                               <thead>
                                   <tr>
-                                      <th>Title</th>
-                                      <th>Description</th>
+                                      <th>Nombre</th>
+                                      <th>Caracteristicas</th>
+                                      <th>raza</th>
                                   </tr>
                               </thead>
                               <tbody>
@@ -176,6 +185,7 @@ editTask(id){
                                          <tr key={task._id}>
                                              <td>{task.title}</td>
                                              <td>{task.description}</td>
+                                             <td>{task.raza}</td>
                                              <td> 
                                                  <button className="btn light-blue darken-4"  onClick={()=> this.editTask(task._id)}>
                                                      <i className="material-icons">edit</i>
