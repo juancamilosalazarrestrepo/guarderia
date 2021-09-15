@@ -11,6 +11,8 @@ class App extends Component {
            raza:'',
            comportamiento:'',
            nacimiento:'',
+           vacunas:'',
+           propietario:'',
            tasks:[],
            _id: ''
        };
@@ -35,7 +37,7 @@ class App extends Component {
                
                console.log(data);
                M.toast({html:'actualizado'});
-               this.setState({title:'',description:'',_id:'',raza:'',comportamiento:'',nacimiento:''});
+               this.setState({title:'',description:'',_id:'',raza:'',comportamiento:'',nacimiento:'',vacunas:'',propietario:''});
                this.fetchTasks();
            });
 
@@ -54,7 +56,7 @@ class App extends Component {
         .then(data => {
             console.log(data);
             M.toast({html:'Propietario Guardado'});
-            this.setState({title: '', description: '',raza:'',comportamiento:'', nacimiento:''});
+            this.setState({title: '', description: '',raza:'',comportamiento:'', nacimiento:'', vacunas:'',propietario:''});
             this.fetchTasks();
         })
         .catch(err => console.error(err));
@@ -111,6 +113,8 @@ editTask(id){
             raza: data.raza,
             comportamiento:data.comportamiento,
             nacimiento:data.nacimiento,
+            vacunas: data.vacunas,
+            propietario: data.propietario,
             _id: data._id
         })
     });
@@ -136,12 +140,14 @@ editTask(id){
                       <a className="brand-logo" href="/">Guarderia de Mascotas</a>
                   </div>
               </nav>
+
               
 
               <div className="container">
+              
                   
                   <div className="row">
-                      <div className="col s5">
+                      <div className="col s10">
                       <div className="card">
                           <div className="card-content">
                               <form onSubmit={this.addTask}>
@@ -178,6 +184,16 @@ editTask(id){
                                          value={this.state.nacimiento}/>
                                        </div>
 
+                                       <div className="input-field col s12">
+                                         <input name="vacunas" onChange={this.handleChange} type="text"  placeholder="vacunas"
+                                         value={this.state.vacunas}/>
+                                       </div>
+
+                                       <div className="input-field col s12">
+                                         <input name="propietario" onChange={this.handleChange} type="text"  placeholder="propietario"
+                                         value={this.state.propietario}/>
+                                       </div>
+
                                        
                                   
 
@@ -191,16 +207,18 @@ editTask(id){
                           </div>
                       </div>
                       </div>
-                      <div className="col s7">
                           <table>
 
                               <thead>
+                                  <tr>Perros en la guarderia</tr>
                                   <tr>
                                       <th>Nombre</th>
                                       <th>Caracteristicas</th>
                                       <th>raza</th>
                                       <th>Comportamiento</th>
                                       <th>Fecha de nacimiento</th>
+                                      <th>vacunas</th>
+                                      <th>propietario</th>
                                   </tr>
                               </thead>
                               <tbody>
@@ -215,6 +233,9 @@ editTask(id){
                                              <td>{task.raza}</td>
                                              <td>{task.comportamiento}</td>
                                              <td>{task.nacimiento}</td>
+                                             <td>{task.vacunas}</td>
+                                             <td>{task.propietario}</td>
+
                                              <td> 
                                                  <button className="btn light-blue darken-4"  onClick={()=> this.editTask(task._id)}>
                                                      <i className="material-icons">edit</i>
@@ -234,6 +255,11 @@ editTask(id){
                           </table>
                           
                     </div>
+                  </div>
+
+                  <div className="row">
+                  <div className="col s7">
+
                   </div>
 
 

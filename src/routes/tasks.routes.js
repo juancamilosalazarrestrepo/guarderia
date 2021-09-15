@@ -16,15 +16,15 @@ router.get('/:id', async (req, res ) =>{
 })
 
 router.post("/", async (req, res) => {
-  const { title, description, raza,comportamiento,nacimiento } = req.body;
-  const task = new Task({ title, description, raza, comportamiento,nacimiento });
+  const { title, description, raza,comportamiento,nacimiento, vacunas, propietario } = req.body;
+  const task = new Task({ title, description, raza, comportamiento,nacimiento,vacunas,propietario });
   await task.save();
   res.json({ status: "Task Saved" });
 });
 
 router.put("/:id", async (req, res) => {
-  const { title, description, raza,comportamiento,nacimiento } = req.body;
-  const newTask = { title, description, raza, comportamiento,nacimiento };
+  const { title, description, raza,comportamiento,nacimiento,propietario } = req.body;
+  const newTask = { title, description, raza, comportamiento,nacimiento,vacunas,propietario };
   await Task.findByIdAndUpdate(req.params.id,newTask);
   
   res.json({status: 'Task Updated'});
