@@ -1,6 +1,7 @@
 import React, {Component} from "react";
 
 
+
 class App extends Component {
 
    constructor() {
@@ -146,7 +147,7 @@ editTask(id){
               <div className="container">
               
                   
-                  <div className="colum">
+                  <div className="contenedor">
                       <div className="col s10">
 
                      
