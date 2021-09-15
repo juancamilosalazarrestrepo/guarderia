@@ -18,7 +18,7 @@ class App extends Component {
            tasks:[],
            _id: ''
           
-       };
+       }
         this.statep = {
            nombrep:'',
            email:'',
@@ -29,6 +29,7 @@ class App extends Component {
            _id: ''
        } 
        this.handleChange = this.handleChange.bind(this);
+       this.handleChangep = this.handleChangep.bind(this);
        this.addTask = this.addTask.bind(this);
        this.addPersona = this.addPersona.bind(this);
    }
@@ -49,7 +50,7 @@ class App extends Component {
         .then(res => res.json())
    
         .then(data => {
-            console.log(data);
+            
             M.toast({html:'Propietario Guardado'});
             this.setState({nombrep: '', email: '',direccion:'',telefono:'', cedula:''});
             this.fetchPersonas();
@@ -65,7 +66,7 @@ class App extends Component {
     .then(res  => res.json())
     .then(data =>{
      
-     this.setState({personas: data });
+     this.statep.personas=({personas: data });
      console.log(this.statep.personas); 
     } 
      ); 
@@ -160,7 +161,7 @@ editPersona(id){
 
    componentDidMount(){
       this.fetchTasks();
-      this.fetchPersonas();
+     /*  this.fetchPersonas(); */
       
    }
 
@@ -216,17 +217,42 @@ editTask(id){
      
 }
    handleChange(e){
+
+       console.log(e.target.value);
      const { name,value } = e.target;
      this.setState({
          [name]: value
      });
      
    }
-   /* handleChangep(e){
-    const { name,value } = e.target;
-    this.setState({
-        [name]: value
-    });}*/
+   handleChangep(e){
+       console.log(e.target)
+    const name= e.target.name;
+
+    if(e.target.name == "nombrep")
+    {
+        this.statep.nombrep= e.target.value;
+    }
+    if(e.target.name == "email")
+    {
+        this.statep.email= e.target.value;
+    }
+    if(e.target.name == "direccion")
+    {
+        this.statep.direccion= e.target.value;
+    }
+    if(e.target.name== "telefono")
+    {
+        this.statep.telefono= e.target.value;
+    }
+    if(e.target.name == "cedula")
+    {
+        this.statep.cedula= e.target.value;
+    }
+
+    
+    console.log(this.statep);
+    ;}
     
   
 
@@ -404,16 +430,20 @@ editTask(id){
     <div className="card">
       <div className="card-content">
          <input  type="text" name="nombrep"
+        onChange={this.handleChangep}
+        
+         
            placeholder="nombre propietario"
-           value={this.state.nombrep}
+           
            
            style={{
                margin:'10px',
                width:'500px'
            }}/>
            <input  type="email" name="email"
-           placeholder="email propietario"
-           value={this.statep.email}
+           
+          
+           onChange={this.handleChangep}
            
            
            style={{
@@ -422,7 +452,7 @@ editTask(id){
            }}/>
            <input  type="text" name="direccion"
            placeholder="direccion del propietario"
-           
+           onChange={this.handleChangep}
           
            style={{
                margin:'10px',
@@ -430,6 +460,7 @@ editTask(id){
            }}/>
            <input  type="text" name="telefono"
            placeholder="telefono propietario"
+           onChange={this.handleChangep}
            
            
            
@@ -439,6 +470,7 @@ editTask(id){
            }}/>
            <input  type="text" name="cedula"
            placeholder="cedula del propietario"
+           onChange={this.handleChangep}
            
            
            style={{
@@ -483,18 +515,18 @@ editTask(id){
 {
  
      this.statep.personas.map(persona => {
-         console.log(persona);
+         
          return(
              
            <tr key={persona._id}>
-               <td>{persona.nombrep}</td>
+               <td>{thispersona.nombrep}</td>
                <td>{persona.email}</td>
                <td>{persona.direccion}</td>
                <td>{persona.telefono}</td>
                <td>{persona.cedula}</td>
                
 
-               <td> 
+               {/* <td> 
                    <button className="btn light-blue darken-4"  onClick={()=> this.editPersona(persona._id)}>
                        <i className="material-icons">edit</i>
                        
@@ -504,7 +536,7 @@ editTask(id){
                    <i className="material-icons">delete</i>
                        
                    </button>
-               </td>
+               </td> */}
            </tr>
          )
      })
@@ -527,27 +559,7 @@ editTask(id){
     
     
 </div> 
-                  <div className="row">
-                      <div >
-                      <div className="card">
-                          <div className="card-content">
-                          <form onSubmit={this.addPersona}>
-                              
-                          <div className="row">
-                                       <div className="input-field col s12">
-                                         <input name="nombrepdd" onChange={this.handleChange} type="text" placeholder="nombre propietario" 
-                                         />
-                                       </div>
-                                  </div> 
-
-                                        
-                          </form>
-
-                          </div>
-                      </div>
-                      </div>
-
-                  </div>
+                  
 
                   
             </div>
