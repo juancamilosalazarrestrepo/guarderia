@@ -130,7 +130,7 @@ editTask(id){
    }
 
    
-   
+
     render(){
         return (
             <div>
@@ -147,7 +147,7 @@ editTask(id){
               <div className="container">
               
                   
-                  <div className="contenedor">
+                  <div className="row">
                       <div className="col s10">
 
                      
@@ -276,6 +276,31 @@ editTask(id){
                           </table>
                           
                     </div>
+                  </div>
+{/* formulario personas */}
+                  
+<div style={{backgroundColor:'#000000'}}>
+
+    creacion
+</div>
+                  <div className="row">
+                      <div >
+                      <div className="card">
+                          <div clasName="card-content">
+                          <form onSubmit={this.addPersona}>
+                              
+                          <div className="row">
+                                       <div className="input-field col s12">
+                                         <input name="nombrep" onChange={this.handleChange} type="text" placeholder="nombre propietario" 
+                                         />
+                                       </div>
+                                  </div> 
+                          </form>
+
+                          </div>
+                      </div>
+                      </div>
+
                   </div>
 
                   
