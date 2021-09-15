@@ -1,5 +1,6 @@
-import React, {Component} from "react";
+import React, {Component,useState} from "react";
 import persona from "../models/persona";
+
 
 
 
@@ -511,36 +512,42 @@ editTask(id){
     </tr>
 </thead>
 <tbody>
+{this.fetchPersonas()}
+    <td>{this.state.tasks.length}</td>
+    
+    <td>{this.statep.personas.length}</td>
+    
+    <td>tttt</td>
+    
+    <td>tttt</td>
+    
+    <td>tttt</td>
+{/* {
+  
+   this.statep.personas.map(persona => {
+    
+    return(
+      <tr key={persona._id}>
+          <td>{persona.nombrep}</td>
+          <td>{persona.email}</td>
+          <td>{persona.direccion}</td>
+          <td>{persona.telefono}</td>
+          <td>{persona.cedula}</td>
+          
 
-{
- 
-     this.statep.personas.map(persona => {
-         
-         return(
-             
-           <tr key={persona._id}>
-               <td>{thispersona.nombrep}</td>
-               <td>{persona.email}</td>
-               <td>{persona.direccion}</td>
-               <td>{persona.telefono}</td>
-               <td>{persona.cedula}</td>
-               
+        
+      </tr>
+    )
+})
 
-               {/* <td> 
-                   <button className="btn light-blue darken-4"  onClick={()=> this.editPersona(persona._id)}>
-                       <i className="material-icons">edit</i>
-                       
+  
 
-                   </button>
-                   <button onClick={()=> this.deletePersona(persona._id)} className="btn light-blue darken-4" style={{margin:'4px'}}>
-                   <i className="material-icons">delete</i>
-                       
-                   </button>
-               </td> */}
-           </tr>
-         )
-     })
-    }
+} */}
+
+    
+   
+    
+    
 </tbody>
 </table>
 
