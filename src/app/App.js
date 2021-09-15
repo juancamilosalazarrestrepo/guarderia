@@ -9,6 +9,8 @@ class App extends Component {
            title:'',
            description: '',
            raza:'',
+           comportamiento:'',
+           nacimiento:'',
            tasks:[],
            _id: ''
        };
@@ -33,7 +35,7 @@ class App extends Component {
                
                console.log(data);
                M.toast({html:'actualizado'});
-               this.setState({title:'',description:'',_id:'',raza:''});
+               this.setState({title:'',description:'',_id:'',raza:'',comportamiento:'',nacimiento:''});
                this.fetchTasks();
            });
 
@@ -52,7 +54,7 @@ class App extends Component {
         .then(data => {
             console.log(data);
             M.toast({html:'Propietario Guardado'});
-            this.setState({title: '', description: '',raza:''});
+            this.setState({title: '', description: '',raza:'',comportamiento:'', nacimiento:''});
             this.fetchTasks();
         })
         .catch(err => console.error(err));
@@ -107,6 +109,8 @@ editTask(id){
             title: data.title,
             description: data.description,
             raza: data.raza,
+            comportamiento:data.comportamiento,
+            nacimiento:data.nacimiento,
             _id: data._id
         })
     });
@@ -132,8 +136,10 @@ editTask(id){
                       <a className="brand-logo" href="/">Guarderia de Mascotas</a>
                   </div>
               </nav>
+              
 
               <div className="container">
+                  
                   <div className="row">
                       <div className="col s5">
                       <div className="card">
@@ -158,6 +164,25 @@ editTask(id){
                                          value={this.state.raza}/>
                                        </div>
                                   </div>
+                                  <div className="row">
+                                       
+                                  <div className="input-field col s12">
+                                         <input name="comportamiento" onChange={this.handleChange} type="text" placeholder="comportamiento" 
+                                         value={this.state.comportamiento}/>
+                                       </div>
+
+                                       
+                                  </div>
+                                  <div className="input-field col s12">
+                                         <input name="nacimiento" onChange={this.handleChange} type="date" 
+                                         value={this.state.nacimiento}/>
+                                       </div>
+
+                                       
+                                  
+
+                                  
+
 
                                   <button type="submit" className="btn light-blue darken-4">
                                       Enviar
@@ -174,6 +199,8 @@ editTask(id){
                                       <th>Nombre</th>
                                       <th>Caracteristicas</th>
                                       <th>raza</th>
+                                      <th>Comportamiento</th>
+                                      <th>Fecha de nacimiento</th>
                                   </tr>
                               </thead>
                               <tbody>
@@ -186,6 +213,8 @@ editTask(id){
                                              <td>{task.title}</td>
                                              <td>{task.description}</td>
                                              <td>{task.raza}</td>
+                                             <td>{task.comportamiento}</td>
+                                             <td>{task.nacimiento}</td>
                                              <td> 
                                                  <button className="btn light-blue darken-4"  onClick={()=> this.editTask(task._id)}>
                                                      <i className="material-icons">edit</i>
