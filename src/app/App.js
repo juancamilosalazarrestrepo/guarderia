@@ -1,4 +1,5 @@
 import React, {Component} from "react";
+import persona from "../models/persona";
 
 
 
@@ -16,15 +17,106 @@ class App extends Component {
            propietario:'',
            tasks:[],
            _id: ''
+          
        };
+        this.statep = {
+           nombrep:'',
+           email:'',
+           direccion:'',
+           telefono:'',
+           cedula:'',
+           personas:[],
+           _id: ''
+       } 
        this.handleChange = this.handleChange.bind(this);
        this.addTask = this.addTask.bind(this);
+       this.addPersona = this.addPersona.bind(this);
    }
 
+   /* metodos para agregar personas */
+   addPersona(e){
+         alert("dd");
+         console.log(this.statep);
+         
+        fetch('/api/personas',{
+            method:'POST',
+            body: JSON.stringify(this.statep),
+            headers: {
+                'Accept':'application/json',
+                'Content-Type':'application/json'
+            }
+        })
+        .then(res => res.json())
+   
+        .then(data => {
+            console.log(data);
+            M.toast({html:'Propietario Guardado'});
+            this.setState({nombrep: '', email: '',direccion:'',telefono:'', cedula:''});
+            this.fetchPersonas();
+        })
+        .catch(err => console.error(err));
+
+       
+       e.preventDefault();
+   }
+
+   fetchPersonas(){
+    fetch('/api/personas')
+    .then(res  => res.json())
+    .then(data =>{
+     
+     this.setState({personas: data });
+     console.log(this.statep.personas); 
+    } 
+     ); 
+}
+
+deletePersona(id){
+    
+    if(confirm('estas seguro?')){
+     fetch(`/api/personas/${id}`,{
+         method:'DELETE',
+         
+         headers: {
+          'Accept':'application/json',
+          'Content-Type':'application/json'
+      }    
+    })
+    
+    
+    .then(res => res.json())
+    .then(data=>{
+        console.log(data);
+        console.log(id);
+        M.toast({html:'propietario eliminada'});
+        this.fetchPersonas();
+    });
+}
+}
+
+editPersona(id){
+    fetch(`/api/personas/${id}`)
+    .then(res =>res.json())
+    .then(data => {
+        this.setState({
+            nombrep: data.nombrep,
+            email: data.email,
+            direccion: data.direccion,
+            telefono:data.telefono,
+            cedula:data.cedula,
+            _id: data._id
+        })
+    });
+     
+}
+
+  /*  metodos para agregar mascotas */
    addTask(e){
+       alert("adtask");
+       console.log(this.state);
        
        if(this.state._id){
-           fetch(`/api/tasks/${this.stage._id}`,{
+           fetch(`/api/tasks/${this.state._id}`,{
                
                method:'PUT',
                body: JSON.stringify(this.state),
@@ -68,6 +160,8 @@ class App extends Component {
 
    componentDidMount(){
       this.fetchTasks();
+      this.fetchPersonas();
+      
    }
 
    fetchTasks(){
@@ -128,6 +222,15 @@ editTask(id){
      });
      
    }
+   /* handleChangep(e){
+    const { name,value } = e.target;
+    this.setState({
+        [name]: value
+    });}*/
+    
+  
+
+  
 
    
 
@@ -278,23 +381,166 @@ editTask(id){
                     </div>
                   </div>
 {/* formulario personas */}
-                  
-<div style={{backgroundColor:'#000000'}}>
+                
+ <div style={{
+    backgroundColor: '#ffffff',
+    width:'100%',
+    
+    }}>
 
-    creacion
-</div>
+       {/* contenido formulario personas */}
+    <form onSubmit={this.addPersona} style={{
+        width:'30%',
+        marginLeft:'5%',
+        
+        }}>
+  <div className="row" style={{
+      display:'flex',
+      width:'100%',
+      height:'500px',
+      justifyContent:'space-between'
+      }}>          
+    <div className="col 4">       
+    <div className="card">
+      <div className="card-content">
+         <input  type="text" name="nombrep"
+           placeholder="nombre propietario"
+           value={this.state.nombrep}
+           
+           style={{
+               margin:'10px',
+               width:'500px'
+           }}/>
+           <input  type="email" name="email"
+           placeholder="email propietario"
+           value={this.statep.email}
+           
+           
+           style={{
+               margin:'10px',
+               width:'500px'
+           }}/>
+           <input  type="text" name="direccion"
+           placeholder="direccion del propietario"
+           
+          
+           style={{
+               margin:'10px',
+               width:'500px'
+           }}/>
+           <input  type="text" name="telefono"
+           placeholder="telefono propietario"
+           
+           
+           
+           style={{
+               margin:'10px',
+               width:'500px'
+           }}/>
+           <input  type="text" name="cedula"
+           placeholder="cedula del propietario"
+           
+           
+           style={{
+               margin:'10px',
+               width:'500px'
+           }}/>
+           
+           <button type="submit" className="btn light-blue darken-4" style={{margin:'15px'}}>
+      Enviar
+        </button>
+
+       </div>    
+     </div>    
+     </div>
+    
+     
+    </div> 
+
+    
+    </form>
+
+    <div style={{
+        width:'90%',
+        margin:'50px'
+}}>
+
+    <table>
+
+<thead>
+    <tr>propietarios de Perros en la guarderia</tr>
+    <tr>
+        <th>Nombre persona</th>
+        <th>email</th>
+        <th>dieccion</th>
+        <th>Telefono</th>
+        <th>cedula</th>
+        
+    </tr>
+</thead>
+<tbody>
+
+{
+ 
+     this.statep.personas.map(persona => {
+         console.log(persona);
+         return(
+             
+           <tr key={persona._id}>
+               <td>{persona.nombrep}</td>
+               <td>{persona.email}</td>
+               <td>{persona.direccion}</td>
+               <td>{persona.telefono}</td>
+               <td>{persona.cedula}</td>
+               
+
+               <td> 
+                   <button className="btn light-blue darken-4"  onClick={()=> this.editPersona(persona._id)}>
+                       <i className="material-icons">edit</i>
+                       
+
+                   </button>
+                   <button onClick={()=> this.deletePersona(persona._id)} className="btn light-blue darken-4" style={{margin:'4px'}}>
+                   <i className="material-icons">delete</i>
+                       
+                   </button>
+               </td>
+           </tr>
+         )
+     })
+    }
+</tbody>
+</table>
+
+
+    </div>
+
+
+    <div className="contenedor1">
+       
+    feliz
+    </div>
+    
+    
+
+
+    
+    
+</div> 
                   <div className="row">
                       <div >
                       <div className="card">
-                          <div clasName="card-content">
+                          <div className="card-content">
                           <form onSubmit={this.addPersona}>
                               
                           <div className="row">
                                        <div className="input-field col s12">
-                                         <input name="nombrep" onChange={this.handleChange} type="text" placeholder="nombre propietario" 
+                                         <input name="nombrepdd" onChange={this.handleChange} type="text" placeholder="nombre propietario" 
                                          />
                                        </div>
                                   </div> 
+
+                                        
                           </form>
 
                           </div>
