@@ -146,17 +146,21 @@ editTask(id){
               <div className="container">
               
                   
-                  <div className="row">
+                  <div className="colum">
                       <div className="col s10">
+
+                     
                       <div className="card">
                           <div className="card-content">
                               <form onSubmit={this.addTask}>
-                                  <div className="row">
+                              <div className="row">
                                        <div className="input-field col s12">
                                          <input name="title" onChange={this.handleChange} type="text" placeholder="nombre" 
                                          value={this.state.title}/>
                                        </div>
-                                  </div>
+                                  </div>  
+                                  
+
                                   <div className="row">
                                        <div className="input-field col s12">
                                          <textarea  name="description" onChange={this.handleChange} placeholder="Caracteristicas fisicas"
@@ -164,27 +168,35 @@ editTask(id){
                                           value={this.state.description}></textarea>
                                        </div>
                                   </div>
+
                                   <div className="row">
                                        <div className="input-field col s12">
                                          <input name="raza" onChange={this.handleChange} type="text" placeholder="raza" 
                                          value={this.state.raza}/>
                                        </div>
                                   </div>
+
+                                  
+                                  
+                                  
                                   <div className="row">
                                        
-                                  <div className="input-field col s12">
-                                         <input name="comportamiento" onChange={this.handleChange} type="text" placeholder="comportamiento" 
-                                         value={this.state.comportamiento}/>
-                                       </div>
+                                       <div className="input-field col s12">
+                                              <input name="comportamiento" onChange={this.handleChange} type="text" placeholder="comportamiento" 
+                                              value={this.state.comportamiento}/>
+                                            </div>
+                                            
 
                                        
-                                  </div>
-                                  <div className="input-field col s12">
-                                         <input name="nacimiento" onChange={this.handleChange} type="date" 
-                                         value={this.state.nacimiento}/>
+                                            
                                        </div>
 
                                        <div className="input-field col s12">
+                                         <input name="nacimiento" onChange={this.handleChange} type="date" 
+                                         value={this.state.nacimiento}/>
+                                       </div>
+                                       
+                                  <div className="input-field col s12">
                                          <input name="vacunas" onChange={this.handleChange} type="text"  placeholder="vacunas"
                                          value={this.state.vacunas}/>
                                        </div>
@@ -194,10 +206,10 @@ editTask(id){
                                          value={this.state.propietario}/>
                                        </div>
 
-                                       
                                   
-
                                   
+                                  
+                            
 
 
                                   <button type="submit" className="btn light-blue darken-4">
@@ -207,6 +219,14 @@ editTask(id){
                           </div>
                       </div>
                       </div>
+                          
+                      
+                         
+                          
+                      
+                          
+                          
+                          
                           <table>
 
                               <thead>
@@ -257,13 +277,7 @@ editTask(id){
                     </div>
                   </div>
 
-                  <div className="row">
-                  <div className="col s7">
-
-                  </div>
-
-
-              </div>
+                  
             </div>
         )
     }
