@@ -17,10 +17,6 @@ class App extends Component {
            vacunas:'',
            propietario:'',
            tasks:[],
-           _id: ''
-          
-       }
-        this.statep = {
            nombrep:'',
            email:'',
            direccion:'',
@@ -28,7 +24,9 @@ class App extends Component {
            cedula:'',
            personas:[],
            _id: ''
-       } 
+          
+       }
+        
        this.handleChange = this.handleChange.bind(this);
        this.handleChangep = this.handleChangep.bind(this);
        this.addTask = this.addTask.bind(this);
@@ -38,7 +36,7 @@ class App extends Component {
    /* metodos para agregar personas */
    addPersona(e){
          alert("dd");
-         console.log(this.statep);
+         console.log(this.state);
          
         fetch('/api/personas',{
             method:'POST',
@@ -53,7 +51,7 @@ class App extends Component {
         .then(data => {
             
             M.toast({html:'Propietario Guardado'});
-            this.setState({nombrep: '', email: '',direccion:'',telefono:'', cedula:''});
+            this.setState({nombrep: '', email: '',direccion:'',telefono:'', cedula:'',});
             this.fetchPersonas();
         })
         .catch(err => console.error(err));
@@ -114,7 +112,7 @@ editPersona(id){
 
   /*  metodos para agregar mascotas */
    addTask(e){
-       alert("adtask");
+       
        console.log(this.state);
        
        if(this.state._id){
@@ -132,7 +130,7 @@ editPersona(id){
                
                console.log(data);
                M.toast({html:'actualizado'});
-               this.setState({title:'',description:'',_id:'',raza:'',comportamiento:'',nacimiento:'',vacunas:'',propietario:''});
+               this.setState({title:'',description:'',_id:'',raza:'',comportamiento:'',nacimiento:'',vacunas:'',propietario:'', email: '',direccion:'',telefono:'', cedula:''});
                this.fetchTasks();
            });
 
@@ -274,69 +272,122 @@ editTask(id){
 
               
 
-              <div className="container">
+              <div style={{width:'95%'}}>
               
                   
                   <div className="row">
-                      <div className="col s10">
+                      <div className="col s12">
 
                      
                       <div className="card">
                           <div className="card-content">
                               <form onSubmit={this.addTask}>
-                              <div className="row">
-                                       <div className="input-field col s12">
-                                         <input name="title" onChange={this.handleChange} type="text" placeholder="nombre" 
-                                         value={this.state.title}/>
-                                       </div>
-                                  </div>  
-                                  
 
                                   <div className="row">
-                                       <div className="input-field col s12">
-                                         <textarea  name="description" onChange={this.handleChange} placeholder="Caracteristicas fisicas"
+
+                                      <div className="col s6">
+
+                                      <div className="input-field">
+                                         <input style={{margin:'0px', height:'30px'}} name="title" onChange={this.handleChange} type="text" placeholder="nombre" 
+                                         value={this.state.title}/>
+                                       </div>
+                                      
+                                      <div className="input-field ">
+                                         <textarea style={{margin:'0px', height:'30px'}} name="description" onChange={this.handleChange} placeholder="Caracteristicas fisicas"
                                           className="materialize-textarea"
                                           value={this.state.description}></textarea>
                                        </div>
-                                  </div>
 
-                                  <div className="row">
-                                       <div className="input-field col s12">
-                                         <input name="raza" onChange={this.handleChange} type="text" placeholder="raza" 
+                                       <div className="input-field ">
+                                         <input name="raza" style={{margin:'0px', height:'30px'}} onChange={this.handleChange} type="text" placeholder="raza" 
                                          value={this.state.raza}/>
                                        </div>
-                                  </div>
 
-                                  
-                                  
-                                  
-                                  <div className="row">
-                                       
-                                       <div className="input-field col s12">
-                                              <input name="comportamiento" onChange={this.handleChange} type="text" placeholder="comportamiento" 
+
+                                       <div className="input-field">
+                                              <input name="comportamiento" style={{margin:'0px', height:'30px'}} onChange={this.handleChange} type="text" placeholder="comportamiento" 
                                               value={this.state.comportamiento}/>
                                             </div>
-                                            
 
-                                       
-                                            
-                                       </div>
 
-                                       <div className="input-field col s12">
-                                         <input name="nacimiento" onChange={this.handleChange} type="date" 
+                                            <div className="input-field ">
+                                       <div>Fecha de nacimiento</div>
+                                         <input name="nacimiento" style={{margin:'0px', height:'30px'}} onChange={this.handleChange} type="date" 
                                          value={this.state.nacimiento}/>
                                        </div>
-                                       
-                                  <div className="input-field col s12">
-                                         <input name="vacunas" onChange={this.handleChange} type="text"  placeholder="vacunas"
+
+                                       <div className="input-field ">
+                                         <input name="vacunas" style={{margin:'0px', height:'30px'}} onChange={this.handleChange} type="text"  placeholder="vacunas"
                                          value={this.state.vacunas}/>
                                        </div>
 
-                                       <div className="input-field col s12">
-                                         <input name="propietario" onChange={this.handleChange} type="text"  placeholder="propietario"
+
+                                       </div>
+                                       {/* columna2 */}
+
+                                      <div className="col s6">
+
+                                      
+                                      <div className="input-field ">
+                                         <input name="propietario" style={{margin:'0px', height:'30px'}} onChange={this.handleChange} type="text"  placeholder="propietario"
                                          value={this.state.propietario}/>
                                        </div>
+                                       
 
+                                       <div className="input-field">
+                                         <input name="email" style={{margin:'0px', height:'30px'}} onChange={this.handleChange} type="email"  placeholder="email del propietario"
+                                         value={this.state.email}/>
+                                       </div>
+
+                                       <div className="input-field">
+                                         <input name="direccion" style={{margin:'0px', height:'30px'}} onChange={this.handleChange} type="text"  placeholder="direccion del propietario"
+                                         value={this.state.direccion}/>
+                                       </div>
+                                       <div className="input-field ">
+                                         <input name="telefono" style={{margin:'0px', height:'30px'}} onChange={this.handleChange} type="text"  placeholder="telefono propietario"
+                                         value={this.state.telefono}/>
+                                       </div>
+                                       <div className="input-field ">
+                                         <input name="cedula" style={{margin:'0px', height:'30px'}} onChange={this.handleChange} type="text"  placeholder="cedula propietario"
+                                         value={this.state.cedula}/>
+                                       </div>
+
+
+                                      </div>
+                                  </div>
+                             
+                                       
+                                  
+                                  
+
+                                  
+                                       
+                                  
+
+                                  
+                                      
+                                  
+
+                                  
+                                  
+                                  
+                                 
+                                       
+                                       
+                                            
+
+                                       
+                                            
+                                       
+                                        
+                                       
+                                       
+                                  
+
+                                       
+
+                                       
+                                     
                                   
                                   
                                   
@@ -358,10 +409,12 @@ editTask(id){
                           
                           
                           
-                          <table>
+                          <table style={{width:'100%'
+                        
+                        }}>
 
                               <thead>
-                                  <tr>Perros en la guarderia</tr>
+                                  
                                   <tr>
                                       <th>Nombre</th>
                                       <th>Caracteristicas</th>
@@ -370,6 +423,10 @@ editTask(id){
                                       <th>Fecha de nacimiento</th>
                                       <th>vacunas</th>
                                       <th>propietario</th>
+                                      <th>email</th>
+                                      <th>direccion</th>
+                                      <th>telefono</th>
+                                      <th>cedula</th>
                                   </tr>
                               </thead>
                               <tbody>
@@ -379,13 +436,17 @@ editTask(id){
                                    this.state.tasks.map(task => {
                                        return(
                                          <tr key={task._id}>
-                                             <td>{task.title}</td>
+                                             <td >{task.title}</td>
                                              <td>{task.description}</td>
                                              <td>{task.raza}</td>
                                              <td>{task.comportamiento}</td>
                                              <td>{task.nacimiento}</td>
                                              <td>{task.vacunas}</td>
                                              <td>{task.propietario}</td>
+                                             <td>{task.email}</td>
+                                             <td>{task.direccion}</td>
+                                             <td>{task.telefono}</td>
+                                             <td>{task.cedula}</td>
 
                                              <td> 
                                                  <button className="btn light-blue darken-4"  onClick={()=> this.editTask(task._id)}>
@@ -404,174 +465,14 @@ editTask(id){
                                   }
                               </tbody>
                           </table>
-                          
-                    </div>
-                  </div>
-{/* formulario personas */}
-                
- <div style={{
-    backgroundColor: '#ffffff',
-    width:'100%',
-    
-    }}>
+                                  
+                                  </div>
+                                  </div>
+ </div>
 
-       {/* contenido formulario personas */}
-    <form onSubmit={this.addPersona} style={{
-        width:'30%',
-        marginLeft:'5%',
-        
-        }}>
-  <div className="row" style={{
-      display:'flex',
-      width:'100%',
-      height:'500px',
-      justifyContent:'space-between'
-      }}>          
-    <div className="col 4">       
-    <div className="card">
-      <div className="card-content">
-         <input  type="text" name="nombrep"
-        onChange={this.handleChangep}
-        
-         
-           placeholder="nombre propietario"
-           
-           
-           style={{
-               margin:'10px',
-               width:'500px'
-           }}/>
-           <input  type="email" name="email"
-           
-          
-           onChange={this.handleChangep}
-           
-           
-           style={{
-               margin:'10px',
-               width:'500px'
-           }}/>
-           <input  type="text" name="direccion"
-           placeholder="direccion del propietario"
-           onChange={this.handleChangep}
-          
-           style={{
-               margin:'10px',
-               width:'500px'
-           }}/>
-           <input  type="text" name="telefono"
-           placeholder="telefono propietario"
-           onChange={this.handleChangep}
-           
-           
-           
-           style={{
-               margin:'10px',
-               width:'500px'
-           }}/>
-           <input  type="text" name="cedula"
-           placeholder="cedula del propietario"
-           onChange={this.handleChangep}
-           
-           
-           style={{
-               margin:'10px',
-               width:'500px'
-           }}/>
-           
-           <button type="submit" className="btn light-blue darken-4" style={{margin:'15px'}}>
-      Enviar
-        </button>
-
-       </div>    
-     </div>    
-     </div>
-    
-     
-    </div> 
-
-    
-    </form>
-
-    <div style={{
-        width:'90%',
-        margin:'50px'
-}}>
-
-    <table>
-
-<thead>
-    <tr>propietarios de Perros en la guarderia</tr>
-    <tr>
-        <th>Nombre persona</th>
-        <th>email</th>
-        <th>dieccion</th>
-        <th>Telefono</th>
-        <th>cedula</th>
-        
-    </tr>
-</thead>
-<tbody>
-{this.fetchPersonas()}
-    <td>{this.state.tasks.length}</td>
-    
-    <td>{this.statep.personas.length}</td>
-    
-    <td>tttt</td>
-    
-    <td>tttt</td>
-    
-    <td>tttt</td>
-{/* {
-  
-   this.statep.personas.map(persona => {
-    
-    return(
-      <tr key={persona._id}>
-          <td>{persona.nombrep}</td>
-          <td>{persona.email}</td>
-          <td>{persona.direccion}</td>
-          <td>{persona.telefono}</td>
-          <td>{persona.cedula}</td>
-          
-
-        
-      </tr>
-    )
-})
-
-  
-
-} */}
-
-    
-   
-    
-    
-</tbody>
-</table>
-
-
-    </div>
-
-
-    <div className="contenedor1">
-       
-    feliz
-    </div>
-    
-    
-
-
-    
-    
-</div> 
-                  
-
-                  
-            </div>
-        )
-    }
+)
 }
+}
+  
 
 export default App;
