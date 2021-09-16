@@ -28,3 +28,5 @@ npm run webpack
 y  
 
 npm run dev
+
+tambien se hace uso de Materialize y materialize-icons para los estilos
