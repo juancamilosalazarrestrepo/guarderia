@@ -115,6 +115,7 @@ editPersona(id){
        
        console.log(this.state);
        
+       
        if(this.state._id){
            fetch(`/api/tasks/${this.state._id}`,{
                
